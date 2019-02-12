@@ -25,7 +25,8 @@ This ACF field type is compatible with:
 
 ## Filters
 
-Use this filter if you want to override the default icon folder.
+Use this filter in your theme's `functions.php` if you want to override the default icon folder. Returned path is relative to
+the current theme directory.
 
     add_filter( 'acf_icon_path_suffix', 'acf_icon_path_suffix' );
 
