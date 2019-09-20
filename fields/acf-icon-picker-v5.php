@@ -25,8 +25,10 @@ class acf_field_icon_picker extends acf_field {
 		$this->settings = $settings;
 
 		$this->path_suffix = apply_filters( 'acf_icon_path_suffix', 'assets/img/acf/' );
+		$this->parent_path_suffix = apply_filters( 'acf_icon_parent_path_suffix', 'assets/img/acf/' );
 
 		$this->path = $this->settings['path'] . $this->path_suffix;
+		$this->parent_path = get_template_directory() . '/' . $this->parent_path_suffix;
 
 		$this->url = $this->settings['url'] . $this->path_suffix;
 
@@ -38,16 +40,27 @@ class acf_field_icon_picker extends acf_field {
 		}
 
 		$this->svgs = array();
+		
+		$files = scandir($this->path);
+		$files = $files ? $files : array();
+		
+		$parent_files = scandir($this->parent_path);
+		$parent_files = $parent_files ? $parent_files : array();
+		
+		$files = array_merge($files, $parent_files);
 
-		$files = array_diff(scandir($this->path), array('.', '..'));
-		foreach ($files as $file) {
-			if( pathinfo($file, PATHINFO_EXTENSION) == 'svg' ){
-				$exploded = explode('.', $file);
-				$icon = array(
-					'name' => $exploded[0],
-					'icon' => $file
-				);
-				array_push($this->svgs, $icon);
+		if (count($files)) {
+			
+			$files = array_diff($files, array('.', '..'));
+			foreach ($files as $file) {
+				if( pathinfo($file, PATHINFO_EXTENSION) == 'svg' ){
+					$exploded = explode('.', $file);
+					$icon = array(
+						'name' => $exploded[0],
+						'icon' => $file
+					);
+					array_push($this->svgs, $icon);
+				}
 			}
 		}
 
