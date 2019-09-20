@@ -96,25 +96,35 @@ class acf_field_icon_picker extends acf_field {
 		$input_array = json_decode($input_value, JSON_OBJECT_AS_ARRAY);
 		$svg = array();
 		if ($input_array === NULL) {
-			$input_array = array(
-				'icon' => $input_value
-			);
+			if ($input_value) {
+				$input_array = array(
+					'icon' => $input_value
+				);
+			}
 		}
-		$svg['icon'] = $this->path . $input_array['icon'] . '.svg';
-		if (file_exists($svg['icon'])) {
-			$svg['url'] = $this->url . $input_array['icon'] . '.svg';
-			$svg['location'] = 'current';
+		if (isset($input_array['icon'])) {
+			$svg['icon'] = basename($input_array['icon'], '.svg');
+			$svg['path'] = $this->path . $svg['icon'] . '.svg';
+			if (file_exists($svg['path'])) {
+				$svg['url'] = $this->url . $svg['icon'] . '.svg';
+				$svg['location'] = 'current';
+			}
+			elseif ( $this->parent_path ) {
+				$svg['path'] = $this->parent_path . $svg['icon'] . '.svg';
+				$svg['url'] = $this->parent_url . $svg['icon'] . '.svg';
+				$svg['location'] = 'parent';
+			}
+
+			$svg_encoded = json_encode($svg);
+		} else {
+			$svg_encoded = null;
 		}
-		elseif ( $this->parent_path ) {
-			$svg['icon'] = $this->parent_path . $input_array['icon'] . '.svg';
-			$svg['url'] = $this->parent_url . $input_array['icon'] . '.svg';
-			$svg['location'] = 'parent';
-		}
+		
 		?>
 			<div class="acf-icon-picker">
 				<div class="acf-icon-picker__img">
 					<?php
-						if ( file_exists( $svg['icon'] ) ) {
+						if ( file_exists( $svg['path'] ) ) {
 							echo '<div class="acf-icon-picker__svg">';
 						   	echo '<img src="'.$svg['url'].'" alt=""/>';
 						    echo '</div>';
@@ -124,7 +134,7 @@ class acf_field_icon_picker extends acf_field {
 						    echo '</div>';
 						}
 					?>
-					<input type="hidden" readonly name="<?php echo esc_attr($field['name']) ?>" value="<?php json_encode($svg) ?>"/>
+					<input type="hidden" readonly name="<?php echo esc_attr($field['name']) ?>" value='<?php echo $svg_encoded ?>'/>
 				</div>
 				<?php if ( $field['required' ] == false ) { ?>
 					<span class="acf-icon-picker__remove">
