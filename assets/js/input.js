@@ -1,21 +1,18 @@
-(function ($) {
+(function($) {
   var active_item;
   var item_width = 125;
   var item_height = 116 + 6;
   var recycled_items = [];
 
-  jQuery(document).on('click', 'li[data-svg]', function () {
-    var val = {};
-    val['icon'] = jQuery(this).attr('data-svg');
-    val['url'] = jQuery(this).find('img').first().attr('src');
-    var val_att = JSON.stringify(val);
-    active_item.find('input').val(val_att);
+  jQuery(document).on('click', 'li[data-svg]', function() {
+    var val = jQuery(this).attr('data-svg');
+    active_item.find('input').val(val);
     active_item.find('.acf-icon-picker__svg').html(
       '<img src="' +
-      jQuery(this)
-      .find('img')
-      .attr('src') +
-      '" alt=""/>'
+        jQuery(this)
+          .find('img')
+          .attr('src') +
+        '" alt=""/>'
     );
     jQuery('.acf-icon-picker__popup-holder').trigger('close');
     jQuery('.acf-icon-picker__popup-holder').remove();
@@ -27,7 +24,7 @@
   });
 
   function initialize_field($el) {
-    $el.find('.acf-icon-picker__img').on('click', function (e) {
+    $el.find('.acf-icon-picker__img').on('click', function(e) {
       e.preventDefault();
       var is_open = true;
       active_item = $(this);
@@ -50,7 +47,7 @@
       </div>`
       );
 
-      jQuery('.acf-icon-picker__popup-holder').on('close', function () {
+      jQuery('.acf-icon-picker__popup-holder').on('close', function() {
         is_open = false;
       });
 
@@ -65,7 +62,7 @@
       }
 
       function removeAllItems() {
-        $('[data-acf-icon-index]').each(function (i, el) {
+        $('[data-acf-icon-index]').each(function(i, el) {
           var $el = $(el);
           recycled_items.push($el);
           $el.remove();
@@ -83,12 +80,12 @@
         var index_max = Math.ceil(scroll_max / item_height) * columns;
 
         // remove unneeded items and add them to recycled items.
-        $('[data-acf-icon-index]').each(function (i, el) {
+        $('[data-acf-icon-index]').each(function(i, el) {
           var $el = $(el);
           var index = $el.attr('data-acf-icon-index');
           var name = $el.attr('data-svg');
           // Check if we have the element in the resulting array.
-          var elementExist = function () {
+          var elementExist = function() {
             return svgs.find(function (svg) {
               return svg.name === name;
             });
@@ -115,7 +112,8 @@
           if (recycled_items.length) {
             // If there are recycled items reuse one.
             $el = recycled_items.pop();
-          } else {
+          }
+          else {
             // Or create a new element.
             $el = $(`<li>
               <div class="acf-icon-picker__popup-svg">
@@ -136,11 +134,7 @@
             /[-_]/g,
             ' '
           ));
-          let location = iv.path;
-          if (svg['location'] === 'parent') {
-            location = iv.parent_path;
-          }
-          $el.find('img').attr('src', `${location}${svg['icon']}`);
+          $el.find('img').attr('src', `${iv.path}${svg['icon']}`);
           $list.append($el);
         }
 
@@ -172,7 +166,7 @@
       iconsFilter.addEventListener('keyup', displayResults);
 
       // Closing
-      jQuery('.acf-icon-picker__popup__close').on('click', function (e) {
+      jQuery('.acf-icon-picker__popup__close').on('click', function(e) {
         e.stopPropagation();
         is_open = false;
         jQuery('.acf-icon-picker__popup-holder').remove();
@@ -186,7 +180,7 @@
         .addClass('acf-icon-picker__remove--active');
     }
 
-    $el.find('.acf-icon-picker__remove').on('click', function (e) {
+    $el.find('.acf-icon-picker__remove').on('click', function(e) {
       e.preventDefault();
       var parent = $(this).parents('.acf-icon-picker');
       parent.find('input').val('');
@@ -201,10 +195,8 @@
   }
 
   if (typeof acf.add_action !== 'undefined') {
-    acf.add_action('ready append', function ($el) {
-      acf.get_fields({
-        type: 'icon_picker'
-      }, $el).each(function () {
+    acf.add_action('ready append', function($el) {
+      acf.get_fields({ type: 'icon_picker' }, $el).each(function() {
         initialize_field($(this));
       });
     });
