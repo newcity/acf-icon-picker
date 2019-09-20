@@ -95,6 +95,11 @@ class acf_field_icon_picker extends acf_field {
 		$input_value = $field['value'] != "" ? $field['value'] : $field['initial_value'];
 		$input_array = json_decode($input_value, JSON_OBJECT_AS_ARRAY);
 		$svg = array();
+		if ($input_array === NULL) {
+			$input_array = array(
+				'icon' => $input_value
+			);
+		}
 		$svg['icon'] = $this->path . $input_array['icon'] . '.svg';
 		if (file_exists($svg['icon'])) {
 			$svg['url'] = $this->url . $input_array['icon'] . '.svg';
