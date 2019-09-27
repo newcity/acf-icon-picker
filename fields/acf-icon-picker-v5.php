@@ -39,7 +39,7 @@ class acf_field_icon_picker extends acf_field {
 		if ($this->parent_path_suffix) {
 			$this->parent_path = get_template_directory() . '/' . $this->parent_path_suffix;
 		}
-		if ( is_dir( $this->parent_path ) ) {
+		if ( isset($this->parent_path) && is_dir( $this->parent_path ) ) {
 			$this->parent_url = get_template_directory_uri() . '/' . $this->path_suffix;
 		} else {
 			$this->parent_path = false;
