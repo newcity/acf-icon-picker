@@ -27,6 +27,10 @@ class acf_field_icon_picker extends acf_field {
 		$this->path_suffix = apply_filters( 'acf_icon_path_suffix', 'assets/img/acf/' );
 		$this->parent_path_suffix = apply_filters( 'acf_icon_parent_path_suffix', false );
 
+		if (! $this->parent_path_suffix ) {
+			$this->parent_path_suffix = $this->path_suffix;
+		}
+
 		$this->path = get_stylesheet_directory() . '/' . $this->path_suffix;
 
 		if ( is_dir( $this->path ) ) {
