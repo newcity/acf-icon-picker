@@ -128,7 +128,7 @@ class acf_field_icon_picker extends acf_field {
 			<div class="acf-icon-picker">
 				<div class="acf-icon-picker__img">
 					<?php
-						if ( file_exists( $svg['path'] ) ) {
+						if ( isset( $svg['path'] ) && file_exists( $svg['path'] ) ) {
 							echo '<div class="acf-icon-picker__svg">';
 						   	echo '<img src="'.$svg['url'].'" alt=""/>';
 						    echo '</div>';
