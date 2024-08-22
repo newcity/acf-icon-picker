@@ -2,13 +2,16 @@
 /*
 Plugin Name: Advanced Custom Fields: Icon Picker
 Plugin URI: https://github.com/houke/acf-icon-picker
+Plugin URI: https://github.com/newcity/acf-icon-picker
 Description: Allows you to pick an icon from a predefined list
 Version: 1.6.0
 Author: Houke de Kwant
 Author URI: ttps://github.com/houke/
+Author: Houke de Kwant, NewCity
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 GitHub Plugin URI: https://github.com/houke/acf-icon-picker
+GitHub Plugin URI: chttps://github.com/newcity/acf-icon-picker
 GitHub Branch: master
 */
 
