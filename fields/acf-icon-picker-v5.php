@@ -2,15 +2,15 @@
 
 if( ! defined( 'ABSPATH' ) ) exit;
 
-if( !class_exists('acf_field_icon_picker') ) :
+if( !class_exists('nc_acf_field_icon_picker') ) :
 
-class acf_field_icon_picker extends acf_field {
+class nc_acf_field_icon_picker extends acf_field {
 
 	function __construct( $settings ) {
 
-		$this->name = 'icon-picker';
+		$this->name = 'nc-acf-icon-picker';
 
-		$this->label = __('Icon Picker', 'acf-icon-picker');
+		$this->label = __('NC Icon Picker', 'acf-icon-picker');
 
 		$this->category = 'jquery';
 
@@ -25,6 +25,7 @@ class acf_field_icon_picker extends acf_field {
 		$this->settings = $settings;
 
 		$this->path_suffix = apply_filters( 'acf_icon_path_suffix', 'assets/img/acf/' );
+		$this->path_suffix = apply_filters( 'nc_acf_icon_path_suffix', 'assets/img/acf/' );
 
 		$this->path = $this->settings['path'] . $this->path_suffix;
 
@@ -101,7 +102,7 @@ class acf_field_icon_picker extends acf_field {
 		wp_enqueue_style('acf-input-icon-picker');
 	}
 }
-new acf_field_icon_picker( $this->settings );
+new nc_acf_field_icon_picker( $this->settings );
 
 endif;
 

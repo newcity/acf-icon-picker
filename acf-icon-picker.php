@@ -14,9 +14,10 @@ GitHub Branch: master
 
 if( ! defined( 'ABSPATH' ) ) exit;
 
-if( !class_exists('acf_plugin_icon_picker') ) :
+if( !class_exists('nc_acf_plugin_icon_picker') ) :
 
-class acf_plugin_icon_picker {
+class nc_acf_plugin_icon_picker {
+	
 	protected $settings;
 
 	function __construct() {
@@ -27,7 +28,7 @@ class acf_plugin_icon_picker {
 			'path'		=> plugin_dir_path( __FILE__ )
 		);
 
-		add_action('acf/include_field_types', 	array($this, 'include_field_types'));
+		add_action('acf/include_field_types', array($this, 'include_field_types'));
 
 	}
 
@@ -37,6 +38,6 @@ class acf_plugin_icon_picker {
 
 }
 
-new acf_plugin_icon_picker();
+new nc_acf_plugin_icon_picker();
 
 endif;
