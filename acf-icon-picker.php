@@ -17,6 +17,7 @@ if( ! defined( 'ABSPATH' ) ) exit;
 if( !class_exists('acf_plugin_icon_picker') ) :
 
 class acf_plugin_icon_picker {
+	protected $settings;
 
 	function __construct() {
 
