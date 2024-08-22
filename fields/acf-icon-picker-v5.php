@@ -24,7 +24,7 @@ class nc_acf_field_icon_picker extends acf_field {
 
 		$this->settings = $settings;
 
-		$this->path_suffix = apply_filters( 'nc_acf_icon_path_suffix', 'assets/img/acf/' );
+		$this->path_suffix = apply_filters( 'nc_acf_icon_path_suffix', 'images/svg-icons' );
 		$this->parent_path_suffix = apply_filters( 'nc_acf_icon_parent_path_suffix', false );
 
 		if (! $this->parent_path_suffix ) {
