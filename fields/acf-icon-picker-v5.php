@@ -108,17 +108,15 @@ class nc_acf_field_icon_picker extends acf_field {
 		}
 		if (isset($input_array['icon'])) {
 			$svg['icon'] = basename($input_array['icon'], '.svg');
-			$svg['path'] = $this->path . $svg['icon'] . '.svg';
+			$svg['path'] = $this->path . '/' . $svg['icon'] . '.svg';
 			if (file_exists($svg['path'])) {
-				$svg['url'] = $this->url . $svg['icon'] . '.svg';
+				$svg['url'] = $this->url . '/' . $svg['icon'] . '.svg';
 				$svg['location'] = 'current';
-			}
-			elseif ( $this->parent_path ) {
-				$svg['path'] = $this->parent_path . $svg['icon'] . '.svg';
-				$svg['url'] = $this->parent_url . $svg['icon'] . '.svg';
+			} elseif ( $this->parent_path ) {
+				$svg['path'] = $this->parent_path . '/' . $svg['icon'] . '.svg';
+				$svg['url'] = $this->parent_url . '/' . $svg['icon'] . '.svg';
 				$svg['location'] = 'parent';
 			}
-
 			$svg_encoded = json_encode($svg);
 		} else {
 			$svg_encoded = null;
