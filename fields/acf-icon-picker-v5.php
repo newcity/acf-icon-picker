@@ -57,7 +57,7 @@ class nc_acf_field_icon_picker extends acf_field {
 		
 		$files = is_dir($this->path) ? scandir($this->path) : array();
 		$files = array_map(function ($file) {
-			return $this->path . $file;
+			return $this->path . '/' . $file;
 		}, $files);
 		
 		$parent_files = is_dir($this->parent_path) ? scandir($this->parent_path) : array();
@@ -65,9 +65,8 @@ class nc_acf_field_icon_picker extends acf_field {
 			if ( in_array ($file, array('.', '..'))) {
 				return $file;
 			}
-			return $this->parent_path . $file;
+			return $this->parent_path . '/' . $file;
 		}, $parent_files);
-		
 		$files = array_replace($parent_files, $files);
 
 		if (count($files)) {
@@ -84,7 +83,6 @@ class nc_acf_field_icon_picker extends acf_field {
 					$icon_location = strpos($file, $this->parent_path) !== false ? 'parent' : 'current';
 
 					$icon['location'] = $icon_location;
-
 					if ($icon_location !== 'parent' || ! file_exists($this->path . $name . '.svg')) {
 						array_push($this->svgs, $icon);
 					}
