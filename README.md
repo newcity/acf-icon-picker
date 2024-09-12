@@ -77,6 +77,8 @@ if you are using one. To change the icon directory path for the parent theme sep
 
 ## Changelog
 
+- 2.0.1 - Added a deprecation notice for the old `acf_icon_path_suffix` filter hook. This hook was already deprecated, but the change was not documented and no warning was provided. Please update all references from `acf_icon_path_suffix` to `nc_acf_icon_path_suffix`.
+
 - 2.0.0 - **Major Update.** Before updating your copy of the plugin, review the following changes.
 
   - Changed the field type name from `icon-picker` to `nc-acf-icon-picker` and updated its label from "Icon Picker" to "NC Icon Picker". Anywhere that you have
