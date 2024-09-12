@@ -24,7 +24,9 @@ class nc_acf_field_icon_picker extends acf_field {
 
 		$this->settings = $settings;
 
+		$this->path_suffix = apply_filters_deprecated( 'acf_icon_path_suffix', 'images/svg-icons', '', 'nc_acf_icon_path_suffix', 'Version 2 of the acf-icon-picker plugin changed the name of the `acf_icon_path_suffix` to `nc_acf_icon_path_suffix`. Please update your code.' );
 		$this->path_suffix = apply_filters( 'nc_acf_icon_path_suffix', 'images/svg-icons' );
+		$this->path_suffix = apply_filters_deprecated( 'acf_icon_parent_path_suffix', false, '', 'nc_acf_icon_parent_path_suffix', 'Version 2 of the acf-icon-picker plugin changed the name of the `acf_icon_parent_path_suffix` to `nc_acf_icon_parent_path_suffix`. Please update your code.' );
 		$this->parent_path_suffix = apply_filters( 'nc_acf_icon_parent_path_suffix', false );
 
 		if (! $this->parent_path_suffix ) {
