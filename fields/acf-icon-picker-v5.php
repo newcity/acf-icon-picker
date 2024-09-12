@@ -24,17 +24,22 @@ class nc_acf_field_icon_picker extends acf_field {
 
 		$this->settings = $settings;
 
-		$this->path_suffix = apply_filters_deprecated( 'acf_icon_path_suffix', 'images/svg-icons', '', 'nc_acf_icon_path_suffix', 'Version 2 of the acf-icon-picker plugin changed the name of the `acf_icon_path_suffix` to `nc_acf_icon_path_suffix`. Please update your code.' );
+		$this->path_suffix = apply_filters_deprecated( 'acf_icon_path_suffix', array('images/svg-icons'), '', 'nc_acf_icon_path_suffix', 'Version 2 of the acf-icon-picker plugin changed the name of the `acf_icon_path_suffix` to `nc_acf_icon_path_suffix`. Please update your code.' );
 		$this->path_suffix = apply_filters( 'nc_acf_icon_path_suffix', 'images/svg-icons' );
-		$this->path_suffix = apply_filters_deprecated( 'acf_icon_parent_path_suffix', false, '', 'nc_acf_icon_parent_path_suffix', 'Version 2 of the acf-icon-picker plugin changed the name of the `acf_icon_parent_path_suffix` to `nc_acf_icon_parent_path_suffix`. Please update your code.' );
+		$this->parent_path_suffix = apply_filters_deprecated( 'acf_icon_parent_path_suffix', array(false), '', 'nc_acf_icon_parent_path_suffix', 'Version 2 of the acf-icon-picker plugin changed the name of the `acf_icon_parent_path_suffix` to `nc_acf_icon_parent_path_suffix`. Please update your code.' );
 		$this->parent_path_suffix = apply_filters( 'nc_acf_icon_parent_path_suffix', false );
 
 		if (! $this->parent_path_suffix ) {
 			$this->parent_path_suffix = $this->path_suffix;
 		}
 
-		$this->path = get_stylesheet_directory() . '/' . $this->path_suffix;
+		// If the last character of the path is a slash, remove it
+		if (is_string($this->path_suffix) && substr($this->path_suffix, -1) === '/') {
+			$this->path_suffix = substr($this->path_suffix, 0, -1);
+		}
 
+		$this->path = get_stylesheet_directory() . '/' . $this->path_suffix;
+		
 		if ( is_dir( $this->path ) ) {
 			$this->url = get_stylesheet_directory_uri() . '/' . $this->path_suffix;
 		} else {
@@ -42,11 +47,17 @@ class nc_acf_field_icon_picker extends acf_field {
 			$this->url = $this->settings['url'] . $this->path_suffix;
 		}
 
+		// If the last character of the parent path is a slash, remove it
+		if (is_string($this->parent_path_suffix) && substr($this->parent_path_suffix, -1) === '/') {
+			$this->parent_path_suffix = substr($this->parent_path_suffix, 0, -1);
+		}
+
 		if ($this->parent_path_suffix) {
 			$this->parent_path = get_template_directory() . '/' . $this->parent_path_suffix;
 		}
 		if ( isset($this->parent_path) && is_dir( $this->parent_path ) ) {
-			$this->parent_url = get_template_directory_uri() . '/' . $this->path_suffix;
+			
+			$this->parent_url = get_template_directory_uri() . '/' . $this->parent_path_suffix;
 		} else {
 			$this->parent_path = false;
 			$this->parent_url = false;
