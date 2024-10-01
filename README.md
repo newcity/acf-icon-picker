@@ -107,6 +107,8 @@ This conversion is not backwards-compatible. Any icon values saved using this pl
 
 ## Changelog
 
+- 2.1.1 - Fixed bug where existing string values were not returned correctly with the `string` formatter.
+
 - 2.1.0 - Added `nc_acf_icon_picker_format_type` filter. For details, see the ReadMe under "Filters > Setting the Output Format"
 
 - 2.0.1 - Added a deprecation notice for the old `acf_icon_path_suffix` filter hook. This hook was already deprecated, but the change was not documented and no warning was provided. Please update all references from `acf_icon_path_suffix` to `nc_acf_icon_path_suffix`.
