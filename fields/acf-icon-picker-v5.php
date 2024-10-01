@@ -124,7 +124,7 @@ class nc_acf_field_icon_picker extends acf_field {
 				return $parsed_value['icon'];
 			}
 			if ( is_string( $value ) ) {
-				return $parsed_value;
+				return $value;
 			}
 			return '';
 		}
