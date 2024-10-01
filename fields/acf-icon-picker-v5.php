@@ -106,6 +106,51 @@ class nc_acf_field_icon_picker extends acf_field {
     	parent::__construct();
 	}
 
+	function format_value( $value, $post_id, $field ) {
+		if ( ! $value ) {
+			return $value;
+		}
+
+		$format_type = apply_filters( 'nc_acf_icon_picker_format_type', null );
+
+		if ( ! $format_type ) {
+			return $value;
+		}
+
+		$parsed_value = json_decode($value, true);
+
+		if ( $format_type === 'string' ) {
+			if ( is_array( $parsed_value ) && array_key_exists( 'icon', $parsed_value ) ) {
+				return $parsed_value['icon'];
+			}
+			if ( is_string( $value ) ) {
+				return $parsed_value;
+			}
+			return '';
+		}
+
+		if ( $format_type === 'array' || $format_type === 'json' ) {
+			if ( is_array( $parsed_value ) && array_key_exists( 'icon', $parsed_value ) ) {
+				if ( $format_type === 'json' ) {
+					return $value;
+				}
+				return $parsed_value;
+			}
+
+			if ( is_string( $value ) ) {
+				$value_array = array( 'icon' => $value );
+
+				if ( $format_type === 'json' ) {
+					return json_encode( $value_array );
+				}
+				return $value_array;
+			}
+
+			return false;
+		}
+
+	}
+
 	function render_field( $field ) {
 		$input_value = $field['value'] != "" ? $field['value'] : $field['initial_value'];
 		$input_array = json_decode($input_value, JSON_OBJECT_AS_ARRAY);
