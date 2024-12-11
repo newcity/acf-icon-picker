@@ -176,7 +176,8 @@
     });
 
     // show the remove button if there is an icon selected
-    if ($el.find('input').val().length != 0) {
+    const inputVal = $el.find('input').val();
+    if (inputVal && inputVal.length != 0) {
       $el
         .find('.acf-icon-picker__remove')
         .addClass('acf-icon-picker__remove--active');
